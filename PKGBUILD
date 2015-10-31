@@ -12,9 +12,11 @@ depends=('openssl' 'pcre' 'zlib' 'lua')
 backup=('etc/haproxy/haproxy.cfg')
 install=haproxy.install
 source=(http://haproxy.org/download/${pkgver%.*}/src/haproxy-$pkgver.tar.gz
-        haproxy.cfg)
+        haproxy.cfg
+        tos.diff)
 md5sums=('7343def2af8556ebc8972a9748176094'
-         '7e41518332eeae70fa30dc30861c17c8')
+         '7e41518332eeae70fa30dc30861c17c8'
+         'SKIP')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -23,6 +25,7 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
+  patch -uNp1 -i $srcdir/tos.diff
   make CPU=generic TARGET=linux2628 \
     USE_GETADDRINFO=1 \
     USE_OPENSSL=1 \
