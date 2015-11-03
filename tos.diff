@@ -5,8 +5,8 @@ diff -Naur original/src/proto_tcp.c patched/src/proto_tcp.c
  	if (global.tune.server_rcvbuf)
                  setsockopt(fd, SOL_SOCKET, SO_RCVBUF, &global.tune.server_rcvbuf, sizeof(global.tune.server_rcvbuf));
  
-+	int tos = 4;
-+	setsockopt(fd, IPPROTO_IP, IP_TOS, &tos, sizeof(tos));
++	int mark = 1;
++	setsockopt(fd, SOL_SOCKET, SO_MARK, &mark, sizeof(mark));
 +
  	if ((connect(fd, (struct sockaddr *)&conn->addr.to, get_addr_len(&conn->addr.to)) == -1) &&
  	    (errno != EINPROGRESS) && (errno != EALREADY) && (errno != EISCONN)) {
