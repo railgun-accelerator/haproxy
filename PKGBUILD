@@ -13,7 +13,7 @@ backup=('etc/haproxy/haproxy.cfg')
 install=haproxy.install
 source=(http://haproxy.org/download/${pkgver%.*}/src/haproxy-$pkgver.tar.gz
         haproxy.cfg
-        tos.diff)
+        mark.diff)
 md5sums=('7343def2af8556ebc8972a9748176094'
          '7e41518332eeae70fa30dc30861c17c8'
          'SKIP')
@@ -25,7 +25,7 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
-  patch -uNp1 -i $srcdir/tos.diff
+  patch -uNp1 -i $srcdir/mark.diff
   make CPU=generic TARGET=linux2628 \
     USE_GETADDRINFO=1 \
     USE_OPENSSL=1 \
